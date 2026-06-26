@@ -42,6 +42,10 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             font-size: 16px;
@@ -49,11 +53,13 @@
             background-color: #0f0f0f;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
+            overflow-x: hidden !important;
+            width: 100%;
+            position: relative;
         }
 
         /* ============================================================
-           TYPOGRAPHY (matches homepage)
+           TYPOGRAPHY (matches theme)
            ============================================================ */
         h1,
         h2,
@@ -69,13 +75,13 @@
         }
 
         h1 {
-            font-size: 64px;
+            font-size: clamp(36px, 7vw, 64px);
         }
         h2 {
-            font-size: 48px;
+            font-size: clamp(30px, 5vw, 48px);
         }
         h3 {
-            font-size: 32px;
+            font-size: clamp(24px, 3.5vw, 32px);
         }
 
         .text-glow {
@@ -93,67 +99,67 @@
         }
 
         /* ============================================================
-           HEADER (same as homepage)
+           SCROLLBAR
            ============================================================ */
-        .header-area {
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 999;
-            background: rgba(18, 18, 18, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--neon-pink), var(--neon-purple));
+            border-radius: 10px;
         }
 
-        .header-area .logo img {
-            height: 70px;
-            width: auto;
-            border-radius: 50%;
-            border: 2px solid var(--neon-pink);
-            padding: 3px;
-            transition: border-color 0.3s;
+        /* ============================================================
+           GLASS CARD UTILITY
+           ============================================================ */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: clamp(20px, 3vw, 30px) clamp(16px, 2vw, 24px);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            height: 100%;
         }
 
-        .header-area .logo img:hover {
-            border-color: var(--neon-cyan);
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 51, 133, 0.3);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
-        .navbar .menu {
-            display: flex;
-            gap: 1.5rem;
-            list-style: none;
-            margin: 0;
-            padding: 0;
+        /* ============================================================
+           BADGE PILL
+           ============================================================ */
+        .badge-pill {
+            display: inline-block;
+            background: rgba(255, 51, 133, 0.12);
+            border: 1px solid rgba(255, 51, 133, 0.25);
+            border-radius: 50px;
+            padding: 6px 20px;
+            font-family: 'Saira Extra Condensed', sans-serif;
+            font-weight: 700;
+            font-style: italic;
+            font-size: clamp(12px, 1.2vw, 14px);
+            letter-spacing: 2px;
+            color: var(--neon-pink);
+            text-transform: uppercase;
         }
 
-        .navbar .menu li a {
-            font-family: 'Saira Extra Condensed', sans-serif !important;
-            font-weight: 700 !important;
-            font-style: italic !important;
-            text-transform: uppercase !important;
-            font-size: 11px;
-            letter-spacing: 0.5px;
-            color: #ffffff !important;
-            transition: color 0.3s ease;
-            text-decoration: none;
-        }
-
-        .navbar .menu li a:hover {
-            color: var(--neon-pink) !important;
-        }
-
-        .navbar .menu li a.active {
-            color: var(--neon-pink) !important;
-            border-bottom: 2px solid var(--neon-pink);
-            padding-bottom: 4px;
-        }
-
+        /* ============================================================
+           BUTTONS
+           ============================================================ */
         .theme-btn {
             font-family: 'Saira Extra Condensed', sans-serif !important;
             font-weight: 700 !important;
             font-style: italic !important;
             text-transform: uppercase !important;
-            font-size: 11px !important;
+            font-size: clamp(10px, 1.1vw, 11px) !important;
             letter-spacing: 1.5px !important;
             display: inline-flex;
             align-items: center;
@@ -161,11 +167,12 @@
             line-height: 1 !important;
             transition: all 0.3s ease-in-out;
             background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
-            padding: 12px 25px;
+            padding: clamp(10px, 1.2vw, 12px) clamp(18px, 2vw, 25px);
             border-radius: 50px;
             color: #fff !important;
             border: none;
             text-decoration: none;
+            white-space: nowrap;
         }
 
         .theme-btn:hover {
@@ -178,17 +185,18 @@
             background: transparent;
             border: 2px solid var(--neon-cyan);
             color: #fff;
-            padding: 12px 30px;
+            padding: clamp(10px, 1.2vw, 12px) clamp(18px, 2vw, 30px);
             border-radius: 50px;
             font-family: 'Saira Extra Condensed', sans-serif;
             font-weight: 700;
             font-style: italic;
             text-transform: uppercase;
-            font-size: 14px;
+            font-size: clamp(11px, 1.2vw, 14px);
             letter-spacing: 1px;
             transition: 0.3s;
             text-decoration: none;
             display: inline-block;
+            white-space: nowrap;
         }
 
         .btn-outline-neon:hover {
@@ -199,14 +207,137 @@
         }
 
         /* ============================================================
+           HEADER / NAVIGATION (FULLY RESPONSIVE)
+           ============================================================ */
+        .header-area {
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background: rgba(18, 18, 18, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            transition: background 0.3s ease;
+        }
+
+        .header-area .container {
+            max-width: 1200px;
+            padding: 0 16px;
+        }
+
+        .header-area .gx-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .header-area .logo img {
+            height: clamp(50px, 6vw, 70px);
+            width: auto;
+            border-radius: 50%;
+            border: 2px solid var(--neon-pink);
+            padding: 3px;
+            transition: border-color 0.3s;
+            flex-shrink: 0;
+        }
+
+        .header-area .logo img:hover {
+            border-color: var(--neon-cyan);
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .menu {
+            display: flex;
+            align-items: center;
+            gap: clamp(0.6rem, 1.2vw, 1.5rem);
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .navbar .menu li a {
+            font-family: 'Saira Extra Condensed', sans-serif !important;
+            font-weight: 700 !important;
+            font-style: italic !important;
+            text-transform: uppercase !important;
+            font-size: clamp(9px, 1vw, 11px);
+            letter-spacing: 0.5px;
+            color: #ffffff !important;
+            transition: color 0.3s ease;
+            text-decoration: none;
+            padding: 4px 0;
+            position: relative;
+        }
+
+        .navbar .menu li a:hover {
+            color: var(--neon-pink) !important;
+        }
+
+        .navbar .menu li a.active {
+            color: var(--neon-pink) !important;
+        }
+
+        .navbar .menu li a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--neon-pink);
+            border-radius: 2px;
+        }
+
+        /* Mobile Nav Toggle */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            z-index: 1000;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 26px;
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .nav-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* ============================================================
            ABOUT HERO SECTION
            ============================================================ */
         .about-hero {
             position: relative;
-            padding: 80px 0 60px;
+            padding: clamp(50px, 8vh, 80px) 0 clamp(40px, 5vh, 60px);
             background: #0a0a0f;
             overflow: hidden;
-            min-height: 60vh;
+            min-height: clamp(50vh, 60vh, 60vh);
             display: flex;
             align-items: center;
         }
@@ -220,8 +351,8 @@
             background-image: url('ch1.jpeg');
             background-repeat: no-repeat;
             background-position: 80% center;
-            background-size: 50% auto;
-            opacity: 0.08;
+            background-size: clamp(40%, 50vw, 50%) auto;
+            opacity: clamp(0.04, 0.06vw, 0.08);
             pointer-events: none;
             z-index: 0;
         }
@@ -229,27 +360,13 @@
         .about-hero .container {
             position: relative;
             z-index: 1;
-        }
-
-        .about-hero .badge-pill {
-            display: inline-block;
-            background: rgba(255, 51, 133, 0.12);
-            border: 1px solid rgba(255, 51, 133, 0.25);
-            border-radius: 50px;
-            padding: 6px 20px;
-            font-family: 'Saira Extra Condensed', sans-serif;
-            font-weight: 700;
-            font-style: italic;
-            font-size: 14px;
-            letter-spacing: 2px;
-            color: var(--neon-pink);
-            text-transform: uppercase;
+            padding: 0 16px;
         }
 
         .about-hero h1 {
-            font-size: clamp(48px, 8vw, 80px);
+            font-size: clamp(34px, 8vw, 80px);
             line-height: 1.1;
-            margin-top: 16px;
+            margin-top: 12px;
         }
 
         .about-hero h1 .highlight {
@@ -261,11 +378,11 @@
 
         .about-hero .lead {
             font-family: 'Inter', sans-serif;
-            font-size: 20px;
+            font-size: clamp(16px, 2vw, 20px);
             font-weight: 300;
             color: rgba(255, 255, 255, 0.7);
             max-width: 600px;
-            margin-top: 12px;
+            margin-top: 10px;
             text-transform: none;
             font-style: normal;
         }
@@ -276,37 +393,16 @@
         }
 
         /* ============================================================
-           GLASS CARD UTILITY
-           ============================================================ */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 24px;
-            padding: 30px 24px;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            height: 100%;
-        }
-
-        .glass-card:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 51, 133, 0.3);
-            transform: translateY(-6px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        /* ============================================================
-           SECTION TITLES
+           SECTION HEADINGS
            ============================================================ */
         .section-heading {
             text-align: center;
-            margin-bottom: 48px;
+            margin-bottom: clamp(32px, 5vw, 48px);
         }
 
         .section-heading .sub {
             font-family: 'Inter', sans-serif;
-            font-size: 14px;
+            font-size: clamp(11px, 1.2vw, 14px);
             font-weight: 400;
             text-transform: uppercase;
             letter-spacing: 4px;
@@ -316,13 +412,13 @@
         }
 
         .section-heading h2 {
-            font-size: clamp(36px, 5vw, 52px);
+            font-size: clamp(30px, 5vw, 52px);
             margin-bottom: 10px;
         }
 
         .section-heading p {
             font-family: 'Inter', sans-serif;
-            font-size: 18px;
+            font-size: clamp(15px, 1.5vw, 18px);
             color: rgba(255, 255, 255, 0.6);
             max-width: 600px;
             margin: 0 auto;
@@ -334,7 +430,7 @@
            BIO SECTION
            ============================================================ */
         .bio-section {
-            padding: 80px 0;
+            padding: clamp(50px, 6vh, 80px) 0;
             background: rgba(0, 0, 0, 0.25);
         }
 
@@ -354,13 +450,13 @@
         }
 
         .bio-section .bio-text h3 {
-            font-size: 32px;
-            margin-bottom: 16px;
+            font-size: clamp(26px, 3vw, 32px);
+            margin-bottom: 14px;
         }
 
         .bio-section .bio-text p {
             font-family: 'Inter', sans-serif;
-            font-size: 17px;
+            font-size: clamp(15px, 1.4vw, 17px);
             line-height: 1.8;
             color: rgba(255, 255, 255, 0.8);
             text-transform: none;
@@ -374,7 +470,7 @@
 
         .bio-signature {
             font-family: 'Oleo Script', cursive !important;
-            font-size: 28px;
+            font-size: clamp(24px, 2.5vw, 28px);
             color: var(--neon-pink);
             text-shadow: 0 0 20px rgba(255, 51, 133, 0.2);
             margin-top: 8px;
@@ -384,18 +480,18 @@
            STATS / COUNTERS
            ============================================================ */
         .stats-section {
-            padding: 60px 0;
+            padding: clamp(40px, 5vh, 60px) 0;
             background: rgba(0, 0, 0, 0.15);
         }
 
         .stat-item {
             text-align: center;
-            padding: 20px;
+            padding: clamp(12px, 2vw, 20px);
         }
 
         .stat-item .number {
             font-family: 'Saira Extra Condensed', sans-serif;
-            font-size: 52px;
+            font-size: clamp(32px, 5vw, 52px);
             font-weight: 700;
             font-style: italic;
             background: linear-gradient(135deg, var(--neon-pink), var(--neon-cyan));
@@ -407,7 +503,7 @@
 
         .stat-item .label {
             font-family: 'Inter', sans-serif;
-            font-size: 14px;
+            font-size: clamp(11px, 1.2vw, 14px);
             text-transform: uppercase;
             letter-spacing: 2px;
             color: rgba(255, 255, 255, 0.5);
@@ -415,30 +511,23 @@
             font-style: normal;
         }
 
-        .stat-divider {
-            width: 2px;
-            height: 60px;
-            background: linear-gradient(to bottom, transparent, rgba(255, 51, 133, 0.2), transparent);
-            margin: 0 auto;
-        }
-
         /* ============================================================
            SKILLS / EXPERTISE
            ============================================================ */
         .skills-section {
-            padding: 80px 0;
+            padding: clamp(50px, 6vh, 80px) 0;
             background: #0a0a0f;
         }
 
         .skill-item {
-            margin-bottom: 24px;
+            margin-bottom: clamp(18px, 2.5vw, 24px);
         }
 
         .skill-item .skill-label {
             display: flex;
             justify-content: space-between;
             font-family: 'Inter', sans-serif;
-            font-size: 15px;
+            font-size: clamp(13px, 1.3vw, 15px);
             font-weight: 500;
             color: #fff;
             text-transform: none;
@@ -486,13 +575,13 @@
            TIMELINE / JOURNEY
            ============================================================ */
         .timeline-section {
-            padding: 80px 0;
+            padding: clamp(50px, 6vh, 80px) 0;
             background: rgba(0, 0, 0, 0.25);
         }
 
         .timeline {
             position: relative;
-            padding: 0 0 0 30px;
+            padding: 0 0 0 clamp(20px, 3vw, 30px);
             border-left: 2px solid rgba(255, 51, 133, 0.15);
             max-width: 800px;
             margin: 0 auto;
@@ -500,17 +589,17 @@
 
         .timeline-item {
             position: relative;
-            margin-bottom: 40px;
-            padding-left: 30px;
+            margin-bottom: clamp(30px, 4vw, 40px);
+            padding-left: clamp(20px, 3vw, 30px);
         }
 
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -38px;
+            left: clamp(-30px, -3.5vw, -38px);
             top: 6px;
-            width: 14px;
-            height: 14px;
+            width: clamp(12px, 1.2vw, 14px);
+            height: clamp(12px, 1.2vw, 14px);
             border-radius: 50%;
             background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
             box-shadow: 0 0 20px rgba(255, 51, 133, 0.3);
@@ -519,7 +608,7 @@
 
         .timeline-item .year {
             font-family: 'Saira Extra Condensed', sans-serif;
-            font-size: 20px;
+            font-size: clamp(17px, 1.8vw, 20px);
             font-weight: 700;
             font-style: italic;
             color: var(--neon-cyan);
@@ -527,14 +616,14 @@
         }
 
         .timeline-item h4 {
-            font-size: 22px;
+            font-size: clamp(18px, 2vw, 22px);
             margin: 4px 0 6px;
             color: #fff;
         }
 
         .timeline-item p {
             font-family: 'Inter', sans-serif;
-            font-size: 15px;
+            font-size: clamp(14px, 1.2vw, 15px);
             color: rgba(255, 255, 255, 0.65);
             text-transform: none;
             font-style: normal;
@@ -545,19 +634,19 @@
            PHILOSOPHY / VALUES
            ============================================================ */
         .values-section {
-            padding: 80px 0;
+            padding: clamp(50px, 6vh, 80px) 0;
             background: #0a0a0f;
         }
 
         .value-card {
             text-align: center;
-            padding: 40px 24px;
+            padding: clamp(24px, 3vw, 40px) clamp(16px, 2vw, 24px);
         }
 
         .value-card .icon {
-            font-size: 44px;
+            font-size: clamp(36px, 4vw, 44px);
             color: var(--neon-pink);
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             display: inline-block;
             transition: 0.3s;
         }
@@ -568,13 +657,13 @@
         }
 
         .value-card h4 {
-            font-size: 22px;
+            font-size: clamp(18px, 2vw, 22px);
             margin-bottom: 8px;
         }
 
         .value-card p {
             font-family: 'Inter', sans-serif;
-            font-size: 15px;
+            font-size: clamp(14px, 1.2vw, 15px);
             color: rgba(255, 255, 255, 0.6);
             text-transform: none;
             font-style: normal;
@@ -585,53 +674,55 @@
            CTA SECTION
            ============================================================ */
         .cta-section {
-            padding: 80px 0;
+            padding: clamp(50px, 6vh, 80px) 0;
             background: linear-gradient(135deg, rgba(255, 51, 133, 0.05), rgba(112, 0, 255, 0.05));
             border-top: 1px solid rgba(255, 255, 255, 0.04);
             border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         }
 
         .cta-section h2 {
-            font-size: clamp(36px, 4vw, 52px);
+            font-size: clamp(30px, 4vw, 52px);
         }
 
         .cta-section p {
             font-family: 'Inter', sans-serif;
-            font-size: 18px;
+            font-size: clamp(15px, 1.5vw, 18px);
             color: rgba(255, 255, 255, 0.6);
             text-transform: none;
             font-style: normal;
             max-width: 560px;
-            margin: 12px auto 28px;
+            margin: 10px auto 24px;
         }
 
         .cta-section .btn-group {
             display: flex;
-            gap: 16px;
+            gap: 14px;
             justify-content: center;
             flex-wrap: wrap;
         }
 
         /* ============================================================
-           FOOTER (matches homepage)
+           FOOTER
            ============================================================ */
         .footer-area {
-            padding: 32px 0;
+            padding: clamp(24px, 3vw, 32px) 0;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             background: #0a0a0f;
         }
 
         .footer-area .copyright {
             font-family: 'Inter', sans-serif;
-            font-size: 14px;
+            font-size: clamp(12px, 1.1vw, 14px);
             color: rgba(255, 255, 255, 0.4);
             text-transform: none;
             font-style: normal;
         }
 
         /* ============================================================
-           RESPONSIVE
+           RESPONSIVE BREAKPOINTS
            ============================================================ */
+
+        /* Tablet and below */
         @media (max-width: 992px) {
             .about-hero::before {
                 background-position: 60% center;
@@ -639,25 +730,62 @@
                 opacity: 0.05;
             }
 
-            .stat-divider {
-                display: none;
+            .header-area .gx-row {
+                gap: 8px;
             }
         }
 
+        /* Mobile */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 40px;
-            }
-            h2 {
-                font-size: 32px;
-            }
-            h3 {
-                font-size: 24px;
+            /* Header / Nav */
+            .header-area .gx-row {
+                flex-wrap: wrap;
+                gap: 8px;
             }
 
+            .navbar {
+                width: 100%;
+                order: 3;
+            }
+
+            .navbar .menu {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                padding: 16px 0 8px;
+                gap: 10px;
+                border-top: 1px solid rgba(255, 255, 255, 0.06);
+            }
+
+            .navbar .menu.open {
+                display: flex;
+            }
+
+            .navbar .menu li a {
+                font-size: 14px;
+                padding: 6px 0;
+            }
+
+            .nav-toggle {
+                display: flex;
+                order: 2;
+            }
+
+            .header-area .logo {
+                order: 1;
+            }
+
+            .header-area .theme-btn {
+                order: 4;
+                font-size: 10px !important;
+                padding: 8px 16px;
+            }
+
+            /* Hero */
             .about-hero {
-                padding: 60px 0 40px;
                 min-height: auto;
+                padding: 50px 0 40px;
             }
 
             .about-hero::before {
@@ -666,57 +794,117 @@
                 opacity: 0.04;
             }
 
-            .bio-section {
-                padding: 50px 0;
+            /* Stats - make columns stack nicely */
+            .stats-section .row {
+                gap: 8px;
             }
 
+            .stat-item {
+                padding: 10px;
+            }
+
+            /* Timeline */
             .timeline {
-                padding-left: 20px;
+                padding-left: 16px;
             }
 
             .timeline-item {
-                padding-left: 20px;
+                padding-left: 16px;
             }
 
             .timeline-item::before {
-                left: -28px;
-                width: 12px;
-                height: 12px;
+                left: -24px;
+                width: 10px;
+                height: 10px;
             }
 
-            .navbar .menu {
-                gap: 0.8rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .header-area .gx-row {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            .stat-item .number {
-                font-size: 38px;
-            }
-
+            /* CTA buttons */
             .cta-section .btn-group {
                 flex-direction: column;
                 align-items: center;
             }
+
+            /* Section spacing */
+            section {
+                padding: 40px 0 !important;
+            }
+
+            .py-5 {
+                padding-top: 40px !important;
+                padding-bottom: 40px !important;
+            }
+
+            /* Buttons */
+            .theme-btn,
+            .btn-outline-neon {
+                font-size: 10px !important;
+                padding: 8px 16px !important;
+            }
+
+            /* Footer */
+            .footer-area .copyright {
+                font-size: 12px;
+            }
         }
 
+        /* Small mobile */
         @media (max-width: 480px) {
             .about-hero h1 {
-                font-size: 34px;
+                font-size: 30px;
             }
 
             .about-hero .lead {
-                font-size: 16px;
+                font-size: 15px;
+            }
+
+            .header-area .logo img {
+                height: 44px;
             }
 
             .theme-btn {
-                font-size: 10px !important;
-                padding: 10px 18px;
+                font-size: 9px !important;
+                padding: 6px 12px !important;
+            }
+
+            .btn-outline-neon {
+                font-size: 9px !important;
+                padding: 6px 12px !important;
+            }
+
+            .bio-signature {
+                font-size: 20px;
+            }
+
+            .stat-item .number {
+                font-size: 28px;
+            }
+        }
+
+        /* Desktop large */
+        @media (min-width: 1400px) {
+            .container {
+                max-width: 1320px;
+            }
+        }
+
+        /* Very small screens */
+        @media (max-width: 360px) {
+            h1 {
+                font-size: 26px;
+            }
+
+            .about-hero .lead {
+                font-size: 13px;
+            }
+
+            .theme-btn {
+                font-size: 8px !important;
+                padding: 5px 10px !important;
+            }
+
+            .btn-outline-neon {
+                font-size: 8px !important;
+                padding: 5px 10px !important;
             }
         }
     </style>
@@ -725,27 +913,33 @@
 <body>
 
     <!-- ============================================================
-     HEADER (matches homepage)
+     HEADER (FULLY RESPONSIVE)
      ============================================================ -->
     <header class="header-area">
         <div class="container">
-            <div class="gx-row d-flex align-items-center justify-content-between flex-wrap">
+            <div class="gx-row">
                 <a href="index.html" class="logo">
                     <img src="ch1.jpeg" alt="Jessica Fox Logo">
                 </a>
 
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
                 <nav class="navbar">
-                    <ul class="menu d-flex gap-4 list-unstyled m-0" id="menu-main-menu">
+                    <ul class="menu" id="mainMenu">
                         <li><a href="index.html">Home</a></li>
                         <li><a href="about.html" class="active">About</a></li>
                         <li><a href="services.html">Services</a></li>
                         <li><a href="portfolio.html">Portfolio</a></li>
-                        <li><a href="Commissions.html">Commissions</a></li>
+                        <li><a href="commissions.html">Commissions</a></li>
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </nav>
 
-                <a href="index.html#contact" class="theme-btn">Have a project in mind</a>
+                <a href="index.html#contact" class="theme-btn">Have a project</a>
             </div>
         </div>
     </header>
@@ -755,7 +949,7 @@
      ============================================================ -->
     <section class="about-hero">
         <div class="container">
-            <div class="row align-items-center">
+            <div class="row align-items-center g-4">
                 <div class="col-lg-8" data-aos="fade-right">
                     <span class="badge-pill"><i class="fas fa-star me-2"></i> Meet the artist</span>
                     <h1>
@@ -767,7 +961,7 @@
                         <span>character design &amp; Live2D artistry</span>
                     </p>
                     <div class="mt-4 d-flex flex-wrap gap-3">
-                        <a href="#bio" class="theme-btn" style="padding: 14px 36px;">
+                        <a href="#bio" class="theme-btn" style="padding: 12px 28px;">
                             <i class="fas fa-user me-2"></i> Read my story
                         </a>
                         <a href="index.html#portfolio" class="btn-outline-neon">
@@ -790,7 +984,7 @@
      ============================================================ -->
     <section id="bio" class="bio-section">
         <div class="container">
-            <div class="row align-items-center g-5">
+            <div class="row align-items-center g-4 g-lg-5">
                 <div class="col-lg-5" data-aos="zoom-in">
                     <img src="ch1.jpeg" alt="Jessica Fox Bio" class="bio-image">
                 </div>
@@ -826,7 +1020,7 @@
      ============================================================ -->
     <section class="stats-section">
         <div class="container">
-            <div class="row text-center align-items-center g-4">
+            <div class="row text-center align-items-center g-2 g-md-4">
                 <div class="col-6 col-md-3 stat-item" data-aos="fade-up" data-aos-delay="100">
                     <div class="number">4+</div>
                     <div class="label">Years Experience</div>
@@ -858,7 +1052,7 @@
                 <p>Years of refinement across every facet of character creation and virtual artistry</p>
             </div>
 
-            <div class="row g-4">
+            <div class="row g-3 g-lg-4">
                 <div class="col-md-6" data-aos="fade-right" data-aos-delay="100">
                     <div class="glass-card">
                         <div class="skill-item">
@@ -964,7 +1158,7 @@
                 <p>Core values that define every project I take on</p>
             </div>
 
-            <div class="row g-4">
+            <div class="row g-3 g-lg-4">
                 <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
                     <div class="glass-card value-card">
                         <div class="icon"><i class="fas fa-paint-brush"></i></div>
@@ -1005,7 +1199,7 @@
             <p>Whether you're a streamer, content creator, or agency — I'm here to turn your vision into a stunning
                 reality.</p>
             <div class="btn-group">
-                <a href="index.html#contact" class="theme-btn" style="padding: 16px 44px; font-size:14px;">
+                <a href="index.html#contact" class="theme-btn" style="padding: 14px 36px; font-size: clamp(12px, 1.2vw, 14px);">
                     <i class="fas fa-paper-plane me-2"></i> Start a project
                 </a>
                 <a href="index.html#portfolio" class="btn-outline-neon">
@@ -1016,7 +1210,7 @@
     </section>
 
     <!-- ============================================================
-     FOOTER (matches homepage)
+     FOOTER
      ============================================================ -->
     <footer class="footer-area">
         <div class="container">
@@ -1043,6 +1237,23 @@
             duration: 1000,
             once: true,
             offset: 60,
+        });
+
+        // ─── Mobile Nav Toggle ───
+        const navToggle = document.getElementById('navToggle');
+        const mainMenu = document.getElementById('mainMenu');
+
+        navToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+            mainMenu.classList.toggle('open');
+        });
+
+        // Close menu on link click (mobile)
+        document.querySelectorAll('.navbar .menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active');
+                mainMenu.classList.remove('open');
+            });
         });
 
         // ─── Sticky Header ───
@@ -1072,7 +1283,7 @@
 
         skillFills.forEach(fill => skillObserver.observe(fill));
 
-        // ─── Smooth anchor scrolling for internal links ───
+        // ─── Smooth anchor scrolling ───
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
